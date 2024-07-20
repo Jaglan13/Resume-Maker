@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Generated Resume</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: white;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: blue;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .resume {
+            background-color: #f9f9f9;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin-top: 40px;
+        }
+        .resume h1 {
+            margin-top: 0;
+            font-size: 36px;
+            font-weight: bold;
+            color: blue;
+            border-bottom: 2px solid #4CAF50;
+            padding-bottom: 10px;
+            text-align: center;
+            text-transform: uppercase;
+        }
+        .resume h2 {
+            margin-top: 0;
+            font-weight: bold;
+            color: #4CAF50;
+            border-bottom: 2px solid #4CAF50;
+            padding-bottom: 10px;
+        }
+        .resume h3 {
+            margin-top: 20px;
+            color: blue;
+            border-bottom: 1px solid #ccc;
+            padding-bottom: 5px;
+        }
+        .resume p {
+            margin: 10px 0;
+            color: #666;
+        }
+        .resume img {
+            display: inline-block;
+            margin: 0 auto;
+            max-width: 200px; 
+            height: auto;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+        #printBtn {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            margin-top: 20px;
+        }
+        #printBtn:hover {
+            background-color: #2a9a30;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>My Resume</h2>
+        <div class="resume" id="generatedResume"></div>
+        <button id="printBtn">Print Resume</button>
+    </div>
+
+    <script>
+        function displayResume() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const resumeData = urlParams.get('resumeData');
+        
+            if (resumeData) {
+                const decodedResumeData = decodeURIComponent(resumeData);
+                const resumeContent = JSON.parse(decodedResumeData);
+        
+                const resumeHTML = `
+                    <h1>${resumeContent.fullName}</h1>
+                    <img src="${resumeContent.image}" alt="Profile Image">
+                    <h3>Contact Information</h3>
+                    <p>Email: ${resumeContent.email}</p>
+                    <p>Address: ${resumeContent.address}</p>
+                    <p>Phone: ${resumeContent.phone}</p>
+        
+                    <h3>Education</h3>
+                    <p><strong>${resumeContent.school}</strong></p>
+                    <p>10th Marks (%): ${resumeContent.tenthMarks}</p>
+                    <p><strong>${resumeContent.college}</strong></p>
+                    <p>12th Marks (%): ${resumeContent.twelfthMarks}</p>
+                    <p><strong>${resumeContent.graduation}</strong></p>
+                    <p>Graduation Marks (%): ${resumeContent.graduationMarks}</p>
+        
+                    <h3>Skills</h3>
+                    <p>${resumeContent.skills}</p>
+        
+                    <h3>Experience</h3>
+                    <p>Years of Experience: ${resumeContent.experience}</p>
+        
+                    <h3>Projects</h3>
+                    <p>${resumeContent.projects}</p>
+        
+                    <h3>Certifications</h3>
+                    <p>${resumeContent.certifications}</p>
+        
+                    <h3>Achievements</h3>
+                    <p>${resumeContent.achievements}</p>
+        
+                    <h3>Linkedin</h3>
+                    <p>${resumeContent.linkedin}</p>
+        
+                    <h3>GitHub</h3>
+                    <p>${resumeContent.github}</p>
+                `;
+        
+                document.getElementById('generatedResume').innerHTML = resumeHTML;
+            } else {
+                document.getElementById('generatedResume').innerHTML = '<p>Error: Resume data not found.</p>';
+            }
+        }
+        
+        window.onload = displayResume;
+
+        document.getElementById('printBtn').addEventListener('click', function() {
+            window.print();
+        });
+    </script>
+</body>
+</html>
